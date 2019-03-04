@@ -28,12 +28,12 @@ public class Miner extends UntypedActor {
 
     @Override
     public void onReceive(Object o) throws InterruptedException {
-        log.info("[Miner] ha recibido el mensaje: \"{}\".", o);
+        log.info("[Miner] message received: \"{}\".", o);
 
         if (o == Mensaje.OBTENER_MATERIALES) {
-            log.info("[Miner] está obteniendo materiales...");
+            log.info("[Miner] mining ...");
             mineroService.obtenerMinerales();
-            log.info("[Miner] ha obtenido materiales.");
+            log.info("[Miner] mining done.");
             getSender().tell(Blacksmith.Mensaje.MATERIALES, getSelf());
         } else {
             unhandled(o);

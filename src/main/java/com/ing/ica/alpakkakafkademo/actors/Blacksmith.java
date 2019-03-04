@@ -36,15 +36,15 @@ public class Blacksmith extends UntypedActor {
 
     @Override
     public void onReceive(Object o) throws InterruptedException {
-        log.info("[Blacksmith] ha recibido el mensaje: \"{}\".", o);
+        log.info("[Blacksmith] message received: \"{}\".", o);
 
         if (o == Mensaje.CREAR_ESPADA) {
             espadachines.add(getSender());
-            AlpakkaKafkaDemoApplication.minero.tell(Miner.Mensaje.OBTENER_MATERIALES, getSelf());
+            AlpakkaKafkaDemoApplication.miner.tell(Miner.Mensaje.OBTENER_MATERIALES, getSelf());
         } else if (o == Mensaje.MATERIALES) {
-            log.info("[Blacksmith] está creando espada...");
+            log.info("[Blacksmith] forging sword ...");
             herreroService.crearEspada();
-            log.info("[Blacksmith] ha creado espada.");
+            log.info("[Blacksmith] sword forged.");
             if (!espadachines.isEmpty()) {
                 espadachines.get(0).tell(Swordman.Mensaje.ESPADA_NUEVA, getSelf());
                 espadachines.remove(0);

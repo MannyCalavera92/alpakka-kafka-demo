@@ -22,10 +22,10 @@ public class Swordman extends UntypedActor {
 
     @Override
     public void onReceive(Object o) {
-        log.info("[Swordman] ha recibido el mensaje: \"{}\".", o);
+        log.info("[Swordman] message received: \"{}\".", o);
 
         if (o == Mensaje.ESPADA_ROTA) {
-            AlpakkaKafkaDemoApplication.herrero.tell(Blacksmith.Mensaje.CREAR_ESPADA, getSelf());
+            AlpakkaKafkaDemoApplication.blacksmith.tell(Blacksmith.Mensaje.CREAR_ESPADA, getSelf());
         } else if (o == Mensaje.ESPADA_NUEVA) {
             getContext().stop(getSelf());
         } else {

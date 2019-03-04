@@ -11,19 +11,19 @@ import org.springframework.context.ConfigurableApplicationContext;
 @SpringBootApplication
 public class AlpakkaKafkaDemoApplication {
 
-    public static ActorRef espadachin;
-    public static ActorRef herrero;
-    public static ActorRef minero;
+    public static ActorRef swordman;
+    public static ActorRef blacksmith;
+    public static ActorRef miner;
 
     public static void main(String[] args) {
         final ConfigurableApplicationContext applicationContext = SpringApplication.run(AlpakkaKafkaDemoApplication.class, args);
         ActorSystem actorSystem = applicationContext.getBean(ActorSystem.class);
 
-        espadachin = actorSystem.actorOf(SpringExtension.SpringExtProvider.get(actorSystem).props("espadachin"), "espadachin");
-        herrero = actorSystem.actorOf(SpringExtension.SpringExtProvider.get(actorSystem).props("herrero"), "herrero");
-        minero = actorSystem.actorOf(SpringExtension.SpringExtProvider.get(actorSystem).props("minero"), "minero");
+        swordman = actorSystem.actorOf(SpringExtension.SpringExtProvider.get(actorSystem).props("swordman"), "swordman");
+        blacksmith = actorSystem.actorOf(SpringExtension.SpringExtProvider.get(actorSystem).props("blacksmith"), "blacksmith");
+        miner = actorSystem.actorOf(SpringExtension.SpringExtProvider.get(actorSystem).props("miner"), "miner");
 
-        espadachin.tell(Swordman.Mensaje.ESPADA_ROTA, ActorRef.noSender());
+        swordman.tell(Swordman.Mensaje.ESPADA_ROTA, ActorRef.noSender());
     }
 
 }
