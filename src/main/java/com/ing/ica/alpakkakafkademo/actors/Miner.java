@@ -1,28 +1,27 @@
 package com.ing.ica.alpakkakafkademo.actors;
 
 import akka.actor.UntypedActor;
-import com.ing.ica.alpakkakafkademo.service.MineroService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.ing.ica.alpakkakafkademo.service.MinerService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Scope;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
-@Named("minero")
+@Slf4j
+@Named("miner")
 @Scope("prototype")
 public class Miner extends UntypedActor {
 
-    public enum Mensaje {
-        OBTENER_MATERIALES
+    public enum Message {
+        OBTAIN_MATERIALS
     }
 
-    private static final Logger log = LoggerFactory.getLogger(Miner.class);
-    private final MineroService mineroService;
+    private final MinerService minerService;
 
     @Inject
-    public Miner(MineroService service) {
-        this.mineroService = service;
+    public Miner(MinerService service) {
+        this.minerService = service;
     }
 
 
@@ -30,11 +29,11 @@ public class Miner extends UntypedActor {
     public void onReceive(Object o) throws InterruptedException {
         log.info("[Miner] message received: \"{}\".", o);
 
-        if (o == Mensaje.OBTENER_MATERIALES) {
+        if (o == Message.OBTAIN_MATERIALS) {
             log.info("[Miner] mining ...");
-            mineroService.obtenerMinerales();
+            minerService.obtenerMinerales();
             log.info("[Miner] mining done.");
-            getSender().tell(Blacksmith.Mensaje.MATERIALES, getSelf());
+            getSender().tell(Blacksmith.Mensaje.MATERIALS_OBTAINED, getSelf());
         } else {
             unhandled(o);
         }

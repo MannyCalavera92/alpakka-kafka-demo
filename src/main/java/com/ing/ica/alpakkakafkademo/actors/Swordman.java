@@ -2,31 +2,29 @@ package com.ing.ica.alpakkakafkademo.actors;
 
 import akka.actor.UntypedActor;
 import com.ing.ica.alpakkakafkademo.AlpakkaKafkaDemoApplication;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Scope;
 
 import javax.inject.Named;
 
-@Named("espadachin")
+@Slf4j
+@Named("swordman")
 @Scope("prototype")
 public class Swordman extends UntypedActor {
 
 
-    public enum Mensaje {
-        ESPADA_NUEVA,
-        ESPADA_ROTA
+    public enum Menssage {
+        NEW_SWORD,
+        BROKEN_SWORD
     }
-
-    private static final Logger log = LoggerFactory.getLogger(Swordman.class);
 
     @Override
     public void onReceive(Object o) {
         log.info("[Swordman] message received: \"{}\".", o);
 
-        if (o == Mensaje.ESPADA_ROTA) {
-            AlpakkaKafkaDemoApplication.blacksmith.tell(Blacksmith.Mensaje.CREAR_ESPADA, getSelf());
-        } else if (o == Mensaje.ESPADA_NUEVA) {
+        if (o == Menssage.BROKEN_SWORD) {
+            AlpakkaKafkaDemoApplication.blacksmith.tell(Blacksmith.Mensaje.CRAFT_SWORD, getSelf());
+        } else if (o == Menssage.NEW_SWORD) {
             getContext().stop(getSelf());
         } else {
             unhandled(o);

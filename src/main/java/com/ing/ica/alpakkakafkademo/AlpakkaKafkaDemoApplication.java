@@ -23,7 +23,7 @@ public class AlpakkaKafkaDemoApplication {
         blacksmith = actorSystem.actorOf(SpringExtension.SpringExtProvider.get(actorSystem).props("blacksmith"), "blacksmith");
         miner = actorSystem.actorOf(SpringExtension.SpringExtProvider.get(actorSystem).props("miner"), "miner");
 
-        swordman.tell(Swordman.Mensaje.ESPADA_ROTA, ActorRef.noSender());
+        swordman.tell(Swordman.Menssage.BROKEN_SWORD, ActorRef.noSender());
     }
 
 }
